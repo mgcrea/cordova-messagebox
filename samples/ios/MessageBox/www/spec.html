@@ -36,6 +36,7 @@
 
         <script type="text/javascript">
             (function() {
+                console.warn('in');
                 var jasmineEnv = jasmine.getEnv();
                 jasmineEnv.updateInterval = 1000;
 
@@ -63,6 +64,8 @@
         </script>
     </head>
     <body>
+        <a href="index.html">back</a>
+        <a href="#" onclick="window.location.href = 'spec.html?' + parseInt(Math.random()*100000)">run specs</a>
         <div id="stage" style="display:none;"></div>
     </body>
 </html>

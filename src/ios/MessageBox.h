@@ -1,8 +1,8 @@
 //
 //  MessageBox.h
 //
-// Created by Olivier Louvignes on 11/26/11.
-// Updated on 04/08/2012 for Cordova
+// Created by Olivier Louvignes on 2011-11-26
+// Updated on 2012-08-04 for Cordova ARC-2.1+
 //
 // Copyright 2011 Olivier Louvignes. All rights reserved.
 // MIT Licensed
@@ -19,16 +19,6 @@
 
 #pragma mark - Instance methods
 
-- (void)prompt:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 - (void)prompt:(CDVInvokedUrlCommand*)command;
 
 @end
-
-#pragma mark - Logging tools
-
-#ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#   define DLog(...)
-#endif
-#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);

@@ -1,8 +1,8 @@
 //
 //  MessageBox.m
 //
-// Created by Olivier Louvignes on 11/26/2011.
-// Updated on 04/08/2012 for Cordova
+// Created by Olivier Louvignes on 2011-11-26
+// Updated on 2012-08-04 for Cordova ARC-2.1+
 //
 // Copyright 2011 Olivier Louvignes. All rights reserved.
 // MIT Licensed

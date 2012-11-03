@@ -3,9 +3,9 @@ by [Olivier Louvignes](http://olouv.com)
 
 ## DESCRIPTION ##
 
-* This plugin provides an unified API to use the `UIAlertView` native component from iOS. This plugin is built for Cordova >= v2.1.0 with ARC.
+* This plugin provides an unified API to use the `UIAlertView` native component from iOS.
 
-* Both iOS & Android (not available atm) are supported with the same javascript interface.
+* This plugin is built for Cordova >= v2.1.0 with ARC.
 
 * Compared to the `iPhone/Prompt` plugin, it is more documented & simpler to understand. It does also provide new options for prompt (message, multiline, input type password).
 
@@ -25,49 +25,36 @@ Using this plugin requires [Cordova iOS](https://github.com/apache/incubator-cor
 
 4. Add new entry with key `MessageBox` and value `MessageBox` to `Plugins` in `Cordova.plist/Cordova.plist`
 
-## PLUGIN SETUP FOR ANDROID ##
-
-Using this plugin requires [Cordova Android](https://github.com/apache/incubator-cordova-android).
-
-1. Make sure your Android project has been [updated for Cordova](https://github.com/apache/incubator-cordova-android/blob/master/guides/Cordova%20Upgrade%20Guide.md)
-2. Merge both the `libs` and `src` folder from this plugin to your projet.
-3. Refresh (fn-F5), right-click on the `libs/facebook-android-sdk.jar` & select `Build path > Add to build path` (the debug version will output to the console).
-3. Add the .js files to your `assets/www` folder on disk, and add reference(s) to the .js files using `<script>` tags in your html file(s)
-
-
-    `<script type="text/javascript" src="/js/plugins/FacebookConnect.js"></script>`
-
-
-4. Add new entry with key `FacebookConnect` and value `org.apache.cordova.plugins.FacebookConnect` to `Plugins` in `res/xml/config.xml`
-
-
-    <plugin name="FacebookConnect" value="org.apache.cordova.plugins.FacebookConnect"/>
-
-
-## JAVASCRIPT INTERFACE (IOS/ANDROID) ##
-
-    // After device ready, create a local alias
-    var messageBox = window.plugins.messageBox;
+## JAVASCRIPT INTERFACE (IOS) ##
 
     // Alert
-    messageBox.alert('Title', 'Message', function(button) {
-        console.warn('alert(), arguments=' + Array.prototype.slice.call(arguments).join(', '));
+    window.plugins.messageBox.alert({title: 'Title', message: 'Message'}, function(button) {
+        var args = Array.prototype.slice.call(arguments, 0);
+        console.log("messageBox.alert:" + JSON.stringify(args));
     });
 
     // Confirm
-    messageBox.confirm('Title', 'Message', function(button) {
-        console.warn('confirm(), arguments=' + Array.prototype.slice.call(arguments).join(', '));
+    window.plugins.messageBox.confirm({title: 'Title', message: 'Message'}, function(button) {
+        var args = Array.prototype.slice.call(arguments, 0);
+        console.log("messageBox.confirm:" + JSON.stringify(args));
     });
 
     // Default prompt
-    messageBox.prompt('Title', 'Message', function(button, value) {
-        console.warn('prompt(), arguments=' + Array.prototype.slice.call(arguments).join(', '));
+    window.plugins.prompt({title: 'Title', message: 'Message'}, function(button, value) {
+        var args = Array.prototype.slice.call(arguments, 0);
+        console.log("messageBox.prompt:" + JSON.stringify(args));
     });
 
     // Prompt a password
-    messageBox.prompt('Please enter your password', '', function(button, value) {
-        console.warn('prompt(), arguments=' + Array.prototype.slice.call(arguments).join(', '));
-    }, {placeholder: 'password', type: 'password'});
+    var options = {
+        title: 'Please enter your password',
+        placeholder: 'password',
+        type: 'password'
+    }
+    window.plugins.messageBox.prompt(options, function(button, value) {
+        var args = Array.prototype.slice.call(arguments, 0);
+        console.log("messageBox.prompt:" + JSON.stringify(args));
+    });
 
 * Check [source](https://github.com/mgcrea/cordova-facebook-connect/tree/master/FacebookConnect.js) for additional configuration.
 

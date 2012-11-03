@@ -10,51 +10,61 @@
 
 	function MessageBox() {}
 
-	console.warn('in');
+	MessageBox.prototype.defaults = {
+		okButtonTitle: 'OK',
+		yesButtonTitle: 'Yes',
+		noButtonTitle: 'No',
+		cancelButtonTitle: 'Cancel'
+	};
 
-	MessageBox.prototype.alert = function(title, message, callback, options) {
-		if(!options) options = {};
+	MessageBox.prototype.alert = function(options, callback) {
+		options || (options = {});
+		var scope = options.scope || null;
+
 		var config = {
-			scope: options.scope || null,
-			okButtonTitle: options.okButtonTitle || 'OK'
+			title: options.title || '',
+			message: options.message || '',
+			okButtonTitle: options.okButtonTitle || this.defaults.okButtonTitle
 		};
 
 		var _callback = function(buttonIndex) {
 			var button = 'ok';
-			if(typeof callback == 'function') callback.call(config.scope, button);
+			if(typeof callback == 'function') callback.call(scope, button);
 		};
 
-		return navigator.notification.alert(message, _callback, title, config.okButtonTitle + '');
+		return navigator.notification.alert(config.message, _callback, config.title, config.okButtonTitle + '');
 	};
 
-	MessageBox.prototype.confirm = function(title, message, callback, options) {
-		if(!options) options = {};
+	MessageBox.prototype.confirm = function(options, callback) {
+		options || (options = {});
+		var scope = options.scope || null;
+
 		var config = {
-			scope: options.scope || null,
-			yesButtonTitle: options.yesButtonTitle || 'Yes',
-			noButtonTitle: options.noButtonTitle || 'No'
+			title: options.title || '',
+			message: options.message || '',
+			yesButtonTitle: options.yesButtonTitle || this.defaults.yesButtonTitle,
+			noButtonTitle: options.noButtonTitle || this.defaults.noButtonTitle
 		};
 
 		var _callback = function(buttonIndex) {
 			var button = (buttonIndex === 2) ? 'yes' : 'no';
-			if(typeof callback == 'function') callback.call(config.scope, button);
+			if(typeof callback == 'function') callback.call(scope, button);
 		};
 
-		return navigator.notification.confirm(message, _callback, title, config.noButtonTitle + ', ' + config.yesButtonTitle);
+		return navigator.notification.confirm(config.message, _callback, config.title, config.noButtonTitle + ', ' + config.yesButtonTitle);
 	};
 
-	MessageBox.prototype.prompt = function(title, message, callback, options) {
-		if(!options) options = {};
+	MessageBox.prototype.prompt = function(options, callback) {
+		options || (options = {});
 		var scope = options.scope || null;
-		delete options.scope;
 
 		var config = {
-			okButtonTitle: options.okButtonTitle || 'OK',
-			cancelButtonTitle: options.cancelButtonTitle || 'Cancel',
-			title : title || 'Prompt',
-			message : message || '',
+			title: options.title || '',
+			message: options.message || '',
 			type : options.type || 'text',
-			placeholder : options.placeholder || ''
+			placeholder : options.placeholder || '',
+			okButtonTitle: options.okButtonTitle || this.defaults.okButtonTitle,
+			cancelButtonTitle: options.cancelButtonTitle || this.defaults.cancelButtonTitle
 		};
 
 		var _callback = function(result) {

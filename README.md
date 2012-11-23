@@ -42,7 +42,7 @@ Using this plugin requires [Cordova iOS](https://github.com/apache/incubator-cor
     });
 
     // Default prompt
-    window.plugins.prompt({title: 'Title', message: 'Message'}, function(button, value) {
+    window.plugins.messageBox.prompt({title: 'Title', message: 'Message'}, function(button, value) {
         var args = Array.prototype.slice.call(arguments, 0);
         console.log("messageBox.prompt:" + JSON.stringify(args));
     });

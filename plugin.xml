@@ -6,7 +6,12 @@
 
 	<name>MessageBox</name>
 
-	<asset src="www/MessageBox.js" target="MessageBox.js" />
+	<!--asset src="www/MessageBox.js" target="MessageBox.js" /-->
+	<js-module src="www/MessageBox.js">
+		<clobbers target="org.apache.cordova.plugins.MessageBox" />
+	</js-module>
+
+	<dependency id="org.apache.cordova.core.dialogs"/>
 
 	<!-- android -->
 	<platform name="android">
@@ -41,6 +46,17 @@
 		<header-file src="MessageBox.h" />
 
 		<source-file src="MessageBox.m" />
+	</platform>
+
+	<!-- blackberry10 -->
+	<platform name="blackberry10">
+		<source-file src="src/blackberry10/index.js" />
+		<config-file target="www/config.xml" parent="/widget">
+			<feature name="org.apache.cordova.plugins.MessageBox" value="org.apache.cordova.plugins.MessageBox" />
+			<feature name="Notification">
+				<param name="blackberry-package" value="org.apache.cordova.notification.Notification" />
+			</feature>
+		</config-file>
 	</platform>
 
 </plugin>
